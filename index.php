@@ -2,9 +2,13 @@
 
 
 require 'librery/vendor/autoload.php';
+include("librery/vendor/picqer/php-barcode-generator/src/BarcodeGeneratorJPG.php");
 
 if (isset($_POST['submit'])) {
-    $name =$_POST['name'];
+    $fname =$_POST['fname'];
+    $lname =$_POST['lname'];
+    $mobile =$_POST['mobile'];
+    $age =$_POST['age'];
     // $mobile =$_POST['mobile'];
     // $age =$_POST['age'];
 
@@ -12,7 +16,7 @@ if (isset($_POST['submit'])) {
 // $redColor = [255, 0, 0];
 
 $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
-file_put_contents('barcode_images/barcode.jpg', $generator->getBarcode($name, $generator::TYPE_CODE_39,1,20));
+file_put_contents('barcode_images/barcode.jpg', $generator->getBarcode($fname . "/" . $lname . "/" .$mobile . "/" .$age, $generator::TYPE_CODE_128,1,80));
 
 }
 ?>
@@ -32,17 +36,21 @@ file_put_contents('barcode_images/barcode.jpg', $generator->getBarcode($name, $g
         <div class="row">
              <form  method="POST">
                 <div class="form-group">
-                    <label for="name">Nmae</label>
-                    <input type="text" class="form-control" name="name" id="name" aria-describedby="name" placeholder="Enter Name">
+                    <label for="fname">Frist Name</label>
+                    <input type="text" class="form-control" name="fname"  placeholder="Enter First Name">
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
+                    <label for="lname">Last Name</label>
+                    <input type="text" class="form-control" name="lname"  placeholder="Enter Last Name">
+                </div>
+                <div class="form-group">
                     <label for="mobile">Mobile</label>
-                    <input type="text" class="form-control" name="mobile" id="number" aria-describedby="number" placeholder="Enter Mobile Number">
+                    <input type="number" class="form-control" name="mobile" id="number" aria-describedby="number" placeholder="Enter Mobile Number">
                 </div>
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="text" class="form-control" name="age" id="number" aria-describedby="number" placeholder="Enter Age">
-                </div> -->
+                    <input type="number" class="form-control" name="age" id="number" aria-describedby="number" placeholder="Enter Age">
+                </div>
                 
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </form>
